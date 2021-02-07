@@ -6,6 +6,7 @@
 import pandas as pd
 from matplotlib import pyplot as plt
 import seaborn as sns
+from scipy import stats
 
 dataSet = pd.read_csv('crime-housing-austin-2015.csv')
 
@@ -19,7 +20,11 @@ povertyLevelDataSet['Non-WhiteNon-HispanicorLatino'] = povertyLevelDataSet['Non-
 
 povertyLevelDataSet['NonWhiteSum'] = povertyLevelDataSet['HispanicorLatinoofanyrace'] + povertyLevelDataSet['Non-WhiteNon-HispanicorLatino']
 # %%
-sns.scatterplot(x='NonWhiteSum', y='Populationbelowpovertylevel', data=povertyLevelDataSet)
 
+display(stats.pearsonr(povertyLevelDataSet.Populationbelowpovertylevel, povertyLevelDataSet.NonWhiteSum))
+
+sns.scatterplot(x='NonWhiteSum', y='Populationbelowpovertylevel', data=povertyLevelDataSet)
+sns.regplot(x='NonWhiteSum', y='Populationbelowpovertylevel', data=povertyLevelDataSet)
+plt.figure()
 # %% [markdown]
-# # Turns out this thought is true.
+# # Turns out this thought seems true, according to the pearson correlations.
