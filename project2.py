@@ -2,6 +2,7 @@
 # Gordon Fjeldsted Joshua Handschin
 # %% [markdown]
 # # Thought: Zip codes with a higher percentage of non white individuals will have a higher percentage with a population below the poverty line
+
 # %%
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -20,8 +21,18 @@ povertyLevelDataSet['Non-WhiteNon-HispanicorLatino'] = povertyLevelDataSet['Non-
 
 povertyLevelDataSet['NonWhiteSum'] = povertyLevelDataSet['HispanicorLatinoofanyrace'] + povertyLevelDataSet['Non-WhiteNon-HispanicorLatino']
 # %%
+print('Pearson Correlations')
+pearsonr = stats.pearsonr(povertyLevelDataSet.Populationbelowpovertylevel, povertyLevelDataSet.NonWhiteSum)
 
-display(stats.pearsonr(povertyLevelDataSet.Populationbelowpovertylevel, povertyLevelDataSet.NonWhiteSum))
+print('R Value:')
+print(pearsonr[0])
+print('P Value:')
+print(pearsonr[1])
+
+print('Average Poverty Level:')
+print(povertyLevelDataSet['Populationbelowpovertylevel'].mean())
+print('Standard Deviation:')
+print(povertyLevelDataSet.std())
 
 sns.scatterplot(x='NonWhiteSum', y='Populationbelowpovertylevel', data=povertyLevelDataSet)
 sns.regplot(x='NonWhiteSum', y='Populationbelowpovertylevel', data=povertyLevelDataSet)
